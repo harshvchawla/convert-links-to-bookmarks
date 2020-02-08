@@ -16,7 +16,7 @@ do
     let currLineNum=${currLineNum}+1
     echo "processing Line ${currLineNum} of ${NumLines}..."
     
-    urlTitle=`echo $eachUrl | rev | cut -d'/' -f1 | rev`
+    urlTitle=`wget -qO- $eachUrl | perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si'`
     if [ -z ${urlTitle} ];then
         urlTitle=`echo $eachUrl | cut -d'.' -f2`
     fi
